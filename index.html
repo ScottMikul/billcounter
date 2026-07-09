@@ -37,13 +37,21 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: env(safe-area-inset-top) 12px calc(env(safe-area-inset-bottom) + 12px) 12px;
+    padding: 0 12px calc(env(safe-area-inset-bottom) + 12px) 12px;
   }
   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
     display: flex;
     align-items: stretch;
     gap: 10px;
-    padding: 16px 0 12px 0;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: calc(env(safe-area-inset-top) + 16px) 12px 12px 12px;
+    background: var(--bg);
   }
   .sum-box {
     flex: 1;
@@ -163,6 +171,13 @@
   const rowsEl = document.getElementById('rows');
   const sumEl = document.getElementById('sum');
   const acBtn = document.getElementById('ac');
+  const headerEl = document.querySelector('header');
+
+  function syncHeaderSpacing() {
+    rowsEl.style.marginTop = headerEl.offsetHeight + 'px';
+  }
+  window.addEventListener('resize', syncHeaderSpacing);
+  syncHeaderSpacing();
 
   const inputs = [];
   const productEls = [];
